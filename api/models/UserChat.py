@@ -1,24 +1,25 @@
+
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager, PermissionsMixin
 from django.db import models
 
 class UserChatManager (BaseUserManager):
 
-    def create_user(self,email,last_name,first_name,phone,password=None):
-
-        if not email:
+    def create_user(self,data):
+        if not data['email']:
             raise ValueError("Email is needed")
-        email = self.normalize_email(email)
+        email = self.normalize_email(data['email'])
         user = self.model(email = email)
-        user.last_name = last_name
-        user.first_name = first_name
-        user.phone = phone
-        user.set_password(password)
+        user.last_name = data['last_name']
+        user.first_name = data['first_name']
+        user.phone = data['phone']
+        
+        user.set_password(data['password'])
 
         user.save(using=self._db)
         return user
         
-    def create_superuser(self,email,last_name,first_name,phone,password=None):
-        user = self.create_user(email=email,password=password,last_name=last_name,first_name=first_name,phone=phone)
+    def create_superuser(self,data):
+        user = self.create_user(data)
         user.is_superuser = True
         user.is_staff = True
         user.save(using=self._db)

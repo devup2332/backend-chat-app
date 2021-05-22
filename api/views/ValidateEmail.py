@@ -5,9 +5,7 @@ from api.models.UserChat import UserChat
 class ValidateEmailView(APIView):
 
     def get(self,request,email):
-        print(email)
         user:UserChat = UserChat.objects.filter(email=email).first()
-        print(user)
         if user:
             return Response({
                 "status": False,
