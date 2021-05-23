@@ -1,6 +1,7 @@
 
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager, PermissionsMixin
 from django.db import models
+from api.models.Avatar import AvatarModel
 
 class UserChatManager (BaseUserManager):
 
@@ -12,7 +13,8 @@ class UserChatManager (BaseUserManager):
         user.last_name = data['last_name']
         user.first_name = data['first_name']
         user.phone = data['phone']
-        
+        avatar = AvatarModel.objects.create()
+        user.avatar = avatar
         user.set_password(data['password'])
 
         user.save(using=self._db)
@@ -33,6 +35,7 @@ class UserChat(AbstractBaseUser,PermissionsMixin):
     last_name = models.CharField(max_length=100, default="")
     first_name = models.CharField(max_length=100, default="")
     phone = models.IntegerField(default=0)
+    avatar = models.ForeignKey(AvatarModel, on_delete=models.CASCADE,related_name="avatar",null=True)
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['last_name','first_name','phone']
