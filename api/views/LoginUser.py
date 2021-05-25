@@ -11,6 +11,8 @@ class LoginView(APIView):
         serializer = UserLoginSerializer(data=request.data)
         if serializer.is_valid():
             user = UserChat.objects.filter(email=request.data['email']).first()
+            user.status = True
+            user.save()
             token = RefreshToken.for_user(user)
             res = {
                 "refresh": str(token),

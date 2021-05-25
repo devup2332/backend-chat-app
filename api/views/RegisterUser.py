@@ -8,7 +8,7 @@ class RegisterView (APIView):
 
     def post(self,request):
         try:
-          user = UserChat.objects.create_user(data=request.data)
+          user = UserChat.objects.create_user(email=request.data['email'],last_name=request.data['last_name'],first_name=request.data['first_name'],phone=request.data['phone'],password=request.data['password'])
           token = RefreshToken.for_user(user)
           token = {
               "refresh": str(token),

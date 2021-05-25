@@ -6,6 +6,7 @@ class RefreshTokenView (APIView):
 
     def post(self,request):
         user = request.user
+        RefreshToken.verify()
         token = RefreshToken.for_user(user)
         token = {
               "refresh": str(token),

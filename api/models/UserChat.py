@@ -5,23 +5,24 @@ from api.models.Avatar import AvatarModel
 
 class UserChatManager (BaseUserManager):
 
-    def create_user(self,data):
-        if not data['email']:
+    def create_user(self,email,last_name,first_name,phone,password=None):
+        if not email:
             raise ValueError("Email is needed")
-        email = self.normalize_email(data['email'])
+        email = self.normalize_email(email)
         user = self.model(email = email)
-        user.last_name = data['last_name']
-        user.first_name = data['first_name']
-        user.phone = data['phone']
+        user.last_name = last_name
+        user.first_name = first_name
+        user.phone = phone
         avatar = AvatarModel.objects.create()
         user.avatar = avatar
-        user.set_password(data['password'])
+        user.status = True;
+        user.set_password(password)
 
         user.save(using=self._db)
         return user
         
-    def create_superuser(self,data):
-        user = self.create_user(data)
+    def create_superuser(self,email,last_name,first_name,phone,password=None):
+        user = self.create_user(email=email,last_name=last_name,first_name=first_name,phone=phone,password=password)
         user.is_superuser = True
         user.is_staff = True
         user.save(using=self._db)
@@ -35,6 +36,7 @@ class UserChat(AbstractBaseUser,PermissionsMixin):
     last_name = models.CharField(max_length=100, default="")
     first_name = models.CharField(max_length=100, default="")
     phone = models.IntegerField(default=0)
+    status = models.BooleanField(default=False)
     avatar = models.ForeignKey(AvatarModel, on_delete=models.CASCADE,related_name="avatar",null=True)
     
     USERNAME_FIELD = 'email'

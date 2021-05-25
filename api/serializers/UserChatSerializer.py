@@ -7,4 +7,4 @@ class UserChatSerializer(serializers.ModelSerializer):
     avatar = AvatarSerializer()
     class Meta:
         model = UserChat
-        fields = ['email','phone','avatar']
+        fields = ['id','email','phone','avatar','first_name','last_name','status']
