@@ -12,6 +12,15 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import pusher
+
+pusher_client = pusher.Pusher(
+    app_id='1200650',
+    key='ac39880101ee89ff8d5a',
+    secret='f297b06d21942d349713',
+    cluster='us2',
+    ssl=True
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

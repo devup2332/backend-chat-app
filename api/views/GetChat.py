@@ -10,9 +10,7 @@ class GetChatView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def get(self,request,id=None):
-        user = request.user
-
+    def get(self,request,id):
         chat = ChatModel.objects.filter(id=id).first();
         data = ChatSerilizer(chat)
         return Response(data.data)
