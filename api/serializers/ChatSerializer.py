@@ -1,17 +1,14 @@
-
-from api.serializers.MessageSerializer import MessageSerializer
-from api.serializers.UserChatSerializer import UserChatSerializer
+from functools import partial
 from rest_framework import serializers
-from api.models.Chat import ChatModel
+from api.models.Chat import Chat
+from api.serializers.UserSerializer import UserSerializer
+from api.serializers.MessageSerializer import MessageSerializer
 
 class ChatSerilizer(serializers.ModelSerializer):
-    last_message =MessageSerializer()
-    user_1 = UserChatSerializer()
-    user_2 = UserChatSerializer()
+    user_1 = UserSerializer()
+    user_2 = UserSerializer()
+    messages = MessageSerializer(many=True,required=False)
     
     class Meta:
-        model = ChatModel
-        fields = ['id','last_message','user_1','user_2']
-
-
-
+        model = Chat
+        fields = '__all__'

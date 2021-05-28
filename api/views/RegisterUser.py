@@ -1,14 +1,21 @@
+from api.serializers.AvatarSerializer import AvatarSerializer
+from api.models.Avatar import Avatar
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from api.models.UserChat import UserChat
+from api.models.User import User
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import status
 
 class RegisterView (APIView):
 
     def post(self,request):
-        try:
-          user = UserChat.objects.create_user(email=request.data['email'],last_name=request.data['last_name'],first_name=request.data['first_name'],phone=request.data['phone'],password=request.data['password'])
+          user:User = User.objects.register(data=request.data)
+          user.status = True
+          user.save();
+          avatar = Avatar.objects.create()
+          user.avatar = avatar
+          user.save()
+          avatar = AvatarSerializer(avatar)
           token = RefreshToken.for_user(user)
           token = {
               "refresh": str(token),
@@ -18,10 +25,7 @@ class RegisterView (APIView):
           return Response({
             "message": "User Created",
             "token": token,
+            "avatar": avatar.data
           })
-        except:
-          return Response({
-            "message":"Bad Request",
-          },status=status.HTTP_400_BAD_REQUEST)
       
           

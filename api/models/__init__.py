@@ -1,4 +1,3 @@
-from .UserChat import UserChat
-from .Message import MessageModel
-from .Avatar import AvatarModel
-from .Chat import ChatModel
+from .User import User
+from .Message import Message
+from .Avatar import Avatar

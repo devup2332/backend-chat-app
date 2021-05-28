@@ -7,3 +7,4 @@ from .RefreshToken import RefreshTokenView
 from .GetChats import GetChatsView
 from .GetChat import GetChatView
 from .LogOut import LogOutView
+from .NewMessage import NewMessage

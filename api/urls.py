@@ -13,6 +13,7 @@ urlpatterns = [
     path("auth/validate-email/<str:email>",views.ValidateEmailView.as_view()),
     path('get-chats',views.GetChatsView.as_view()),
     path('logout',views.LogOutView.as_view()),
-    path('get-chat/<str:id>',views.GetChat.GetChatView.as_view())
+    path('get-chat/<str:id>',views.GetChat.GetChatView.as_view()),
+    path('new-message',views.NewMessage.as_view())
 ]
 

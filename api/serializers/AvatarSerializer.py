@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from api.models.Avatar import AvatarModel
+from api.models.Avatar import Avatar
 
 class AvatarSerializer(serializers.ModelSerializer):
     class Meta:
-        model = AvatarModel
+        model = Avatar
         fields = '__all__'
         
