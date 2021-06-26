@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'corsheaders',
-    'cloudinary'
 ]
 
 CORS_ALLOWED_ORIGINS = [

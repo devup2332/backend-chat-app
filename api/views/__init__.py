@@ -8,3 +8,5 @@ from .GetChats import GetChatsView
 from .GetChat import GetChatView
 from .LogOut import LogOutView
 from .NewMessage import NewMessage
+from .SearchUserView import SearchUserView
+from .CreateChat import CreateChatView
